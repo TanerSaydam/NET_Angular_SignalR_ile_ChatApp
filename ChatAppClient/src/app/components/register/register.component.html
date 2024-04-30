@@ -1,0 +1,25 @@
+<div class="row d-flex justify-content-center align-items-center" style="height: 98vh;">
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header">
+                <h3>Giriş Sayfası</h3>
+                <p>Griş yapmak için bilgilerinizi doldurun</p>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input [(ngModel)]="registerModel.name" type="text" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Avatar</label>
+                    <input type="file" (change)="setImage($event)" class="form-control">
+                </div>
+                <div class="form-group mt-2">
+                    <button class="btn btn-dark w-100" (click)="register()">Kayıt Ol</button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>

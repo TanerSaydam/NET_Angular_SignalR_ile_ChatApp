@@ -1,0 +1,78 @@
+<div class="container">
+    <div class="row clearfix">
+      <div>
+        <h1 class="alert alert-dark text-center mt-2">TS ChatAPP</h1>
+        <button class="btn btn-danger" (click)="logout()" style="float: right;">
+            Çıkış Yap
+        </button>
+      </div>
+        <div class="col-lg-12 mt-2">
+            <div class="card chat-app">
+                <div id="plist" class="people-list">
+                    <div class="input-group" style="position: relative;">                      
+                        <input type="text" class="form-control" placeholder="Search..." style="padding-left:35px;">
+                        <i class="fa fa-search" style="position: absolute; top:10px; left: 15px;"></i>
+                    </div>
+                    <ul class="list-unstyled chat-list mt-2 mb-0">
+                      @for(user of users; track user){
+                        <li class="clearfix" [ngClass]="selectedUserId == user.id ? 'active' : ''" (click)="changeUser(user)">
+                            <img src="https://localhost:7123/avatar/{{user.avatar}}" alt="avatar">
+                            <div class="about">
+                                <div class="name">{{user.name}}</div>
+                                <div class="status"> <i class="fa fa-circle" [ngClass]="user.status === 'online' ? 'online' : 'offline'"></i> {{user.status}} </div>                                            
+                            </div>
+                        </li>
+                      }                      
+                    </ul>
+                </div>
+                @if(selectedUserId){
+                  <div class="chat">
+                    <div class="chat-header clearfix">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
+                                    <img src="https://localhost:7123/avatar/{{selectedUser.avatar}}" alt="avatar">
+                                </a>
+                                <div class="chat-about">
+                                    <h6 class="m-b-0">{{selectedUser.name}}</h6>
+                                    <small>{{selectedUser.status}}</small>
+                                </div>
+                            </div>                         
+                        </div>
+                    </div>
+                    <div class="chat-history" style="height: 600px;">
+                        <ul class="m-b-0">
+                          @for(chat of chats; track chat){
+                            @if(selectedUserId != chat.userId){
+                              <li class="clearfix d-flex" style="flex-direction: column; width: 100%; align-items:flex-end;">
+                                <div class="message-data">                                
+                                    <span class="message-data-time">{{chat.date}}</span>                                 
+                                </div>
+                                <div class="message other-message"> {{chat.message}} </div>
+                            </li>
+                            }@else {
+                              <li class="clearfix">
+                                <div class="message-data">
+                                    <span class="message-data-time">{{chat.date}}</span>
+                                </div>
+                                <div class="message my-message">{{chat.message}}</div>                                    
+                            </li>
+                            }                        
+                          }
+                        </ul>
+                    </div>
+                    <div class="chat-message clearfix">
+                        <div class="input-group mb-0">
+                            <div (click)="sendMessage()"lass="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-send"></i></span>
+                            </div>
+                            <input [(ngModel)]="message" type="text" class="form-control" placeholder="Enter text here..." style="height: 30px;">
+                        </div>
+                    </div>
+                </div>
+                }@else {}
+                
+            </div>
+        </div>
+    </div>
+    </div>
